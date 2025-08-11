@@ -1,0 +1,36 @@
+ #include <stdio.h>
+#include <stdlib.h>
+
+struct Node { int data; struct Node* next; } *head = NULL;
+
+void insert(int val) {
+    struct Node* n = malloc(sizeof(struct Node)), *t = head;
+    n->data = val; n->next = NULL;
+    if (!head) head = n;
+    else { while (t->next) t = t->next; t->next = n; }
+}
+
+void del(int val) {
+    struct Node *t = head, *p = NULL;
+    if (t && t->data == val) { head = t->next; free(t); return; }
+    while (t && t->data != val) { p = t; t = t->next; }
+    if (!t) return; p->next = t->next; free(t);
+}
+
+void display() {
+    struct Node* t = head;
+    while (t) { printf("%d -> ", t->data); t = t->next; }
+    printf("NULL\n");
+}
+
+int main() {
+    int ch, v;
+    do {
+        printf("\n1.Insert 2.Delete 3.Display 4.Exit: ");
+        scanf("%d", &ch);
+        if (ch == 1) { printf("Value: "); scanf("%d", &v); insert(v); }
+        else if (ch == 2) { printf("Delete: "); scanf("%d", &v); del(v); }
+        else if (ch == 3) display();
+    } while (ch != 4);
+}
+
