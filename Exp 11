@@ -1,0 +1,72 @@
+#include <stdio.h>
+#define SIZE 5
+
+int stack[SIZE];
+int top = -1;
+
+void push() {
+    int val;
+    if (top == SIZE - 1) {
+        printf("Stack Overflow\n");
+    } else {
+        printf("Enter value to push: ");
+        scanf("%d", &val);
+        top++;
+        stack[top] = val;
+    }
+}
+
+void pop() {
+    if (top == -1) {
+        printf("Stack Underflow\n");
+    } else {
+        printf("Popped: %d\n", stack[top]);
+        top--;
+    }
+}
+
+void peek() {
+    if (top == -1) {
+        printf("Stack is empty\n");
+    } else {
+        printf("Top element: %d\n", stack[top]);
+    }
+}
+
+void display() {
+    int i;
+    if (top == -1) {
+        printf("Stack is empty\n");
+    } else {
+        printf("Stack elements: ");
+        for (i = 0; i <= top; i++) {
+            printf("%d ", stack[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\n1. Push\n2. Pop\n3. Peek\n4. Display\n5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            push();
+        } else if (choice == 2) {
+            pop();
+        } else if (choice == 3) {
+            peek();
+        } else if (choice == 4) {
+            display();
+        } else if (choice == 5) {
+            break;
+        } else {
+            printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
+
