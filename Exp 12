@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <ctype.h>
+char s[100]; int top=-1;
+void push(char c){ s[++top]=c; }
+char pop(){ return s[top--]; }
+int pr(char c){ return c=='^'?3:(c=='*'||c=='/')?2:(c=='+'||c=='-')?1:0; }
+int main(){
+    char e[100],*p,x; scanf("%s",e);
+    for(p=e;*p;p++){
+        if(isalnum(*p)) printf("%c",*p);
+        else if(*p=='(') push(*p);
+        else if(*p==')'){ while((x=pop())!='(') printf("%c",x); }
+        else{ while(top!=-1 && pr(s[top])>=pr(*p)) printf("%c",pop()); push(*p); }
+    }
+    while(top!=-1) printf("%c",pop());
+}
